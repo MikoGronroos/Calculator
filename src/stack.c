@@ -4,9 +4,9 @@
 
 int add(stack* stack, content* item){
    if(stack->count <= 0){
-    stack->stack = malloc(2 * sizeof(content*));
+    stack->stack = malloc(2 * sizeof(content));
    }else{
-    content** newptr= realloc(stack->stack, (1 + stack->count) * sizeof(content*));
+    content** newptr= realloc(stack->stack, (1 + stack->count) * sizeof(content));
     stack->stack = newptr;
    }
    stack->count++;
