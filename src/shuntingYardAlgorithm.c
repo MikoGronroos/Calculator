@@ -102,16 +102,28 @@ type get_type(char character){
 
 stack* tokenize(const char* input){
    stack* tokens = allocateNewStack();
-   for(int i = 0; i < strlen(input); i++){
+   int numberCount = 0;
+   int length = strlen(input);
+   for(int i = 0; i < length; i++){
       if(is_sign(input, i) == 1){
-         content* new = malloc(sizeof(content));
-         new->type = get_type(input[i]);
-         add(tokens, new);
+         if(numberCount > 0){
+            char dest[input_length];
+            strncpy(dest, input + i - numberCount, numberCount);
+            dest[numberCount] = '\0';
+            add(tokens, dest, Number);
+         }
+         add(tokens, "empty", get_type(input[i]));
+         numberCount = 0;
       }else{
-         printf("No sign\n");   
+         numberCount++; 
       }
    }
-   
+   if(numberCount > 0){
+      char dest[input_length];
+      strncpy(dest, input + length - numberCount, numberCount);
+      dest[numberCount] = '\0';
+      add(tokens, dest, Number);
+   }
    return tokens;
 }
 
@@ -120,7 +132,9 @@ stack* parse(const char* input){
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
    for(int i = 0; i < tokens->count; i++){
-      printf("%d\n", tokens->stack[i]->type); 
+      if(tokens->stack[i]-> type == Number){
+      }else{
+      }
    }
    return output;
 }

@@ -1,3 +1,5 @@
+#define input_length 32
+
 typedef enum type{
    Number,
    Substraction,
@@ -13,7 +15,7 @@ typedef enum type{
 
 typedef struct content{
    type type;
-   char* input;
+   char input[input_length];
 } content;
 
 typedef struct stack{
@@ -21,7 +23,7 @@ typedef struct stack{
    int count;
 } stack;
 
-int add(stack* stack, content* item);
+int add(stack* stack, char* input, type type);
 content* pop(stack* stack);
 stack* allocateNewStack();
 int freeStack(stack* target);

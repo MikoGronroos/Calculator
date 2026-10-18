@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
+#include <string.h>
 
-int add(stack* stack, content* item){
-   if(stack->count <= 0){
-    stack->stack = malloc(2 * sizeof(content));
-   }else{
-    content** newptr= realloc(stack->stack, (1 + stack->count) * sizeof(content));
-    stack->stack = newptr;
+int add(stack* stack, char* input, type type){
+   if(stack->count > 0){
+      content** newptr= realloc(stack->stack, (1 + stack->count) * sizeof(content));
+      stack->stack = newptr;
    }
+   stack->stack[stack->count] = malloc(sizeof(content));
+   stack->stack[stack->count]->type = type;
+   strncpy(stack->stack[stack->count]->input, input, input_length-1);
    stack->count++;
-   stack->stack[stack->count-1] = item;
    return 0;
 }
 content* pop(stack* stack){
