@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "stack.h"
+#include "shuntingYardAlgorithm.h"
 #include <string.h>
 
 int main(void){
-   stack* stack = allocateNewStack();
    while(true){
       char buffer[128];
       if(fgets(buffer, sizeof(buffer), stdin)){
@@ -15,6 +15,7 @@ int main(void){
          }else{
            buffer[strlen(buffer)-1] = '\0';
          }
+         stack output = parse(buffer);
       }
    }
    return 0;

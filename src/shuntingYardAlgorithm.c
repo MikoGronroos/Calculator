@@ -49,9 +49,36 @@ char* getAssociativity(char operator){
 
 }
 
+int is_sign(char character){
+   char all[] = {'^', '*', '/', '+', '-', '(', '9'};
+   int value = 0;
+   int count = 5;
+   for(int i = 0; i < count; i++){
+      if(character == all[i]){
+         value = 1;  
+      }
+   }
+   return value;
+}
+
+stack* tokenize(const char* input){
+   stack* tokens = allocateNewStack();
+   for(int i = 0; i < strlen(input); i++){
+      if(is_sign(input[i]) == 1){
+      
+      }
+   }
+   
+   return tokens;
+}
 
 stack parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
+   stack* tokens = tokenize(input);
+   for(int i = 0; i < strlen(input); i++){
+      
+   }
+   free(tokens);
    return *output;
 }
