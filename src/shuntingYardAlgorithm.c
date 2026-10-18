@@ -132,9 +132,6 @@ stack* parse(const char* input){
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
    for(int i = 0; i < tokens->count; i++){
-      if(tokens->stack[i]-> type == Number){
-      }else{
-      }
    }
    return output;
 }
