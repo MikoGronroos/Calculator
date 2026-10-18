@@ -15,7 +15,8 @@ int main(void){
          }else{
            buffer[strlen(buffer)-1] = '\0';
          }
-         stack output = parse(buffer);
+         stack* output = parse(buffer);
+         free(output);
       }
    }
    return 0;

@@ -1,1 +1,1 @@
-stack parse(const char* input);
+stack* parse(const char* input);

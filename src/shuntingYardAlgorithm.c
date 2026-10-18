@@ -72,7 +72,7 @@ stack* tokenize(const char* input){
    return tokens;
 }
 
-stack parse(const char* input){
+stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
@@ -80,5 +80,6 @@ stack parse(const char* input){
       
    }
    free(tokens);
-   return *output;
+   free(operators);
+   return output;
 }
