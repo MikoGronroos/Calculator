@@ -67,7 +67,6 @@ int is_sign(const char* input, int index){
          if(index - 1 > 0){
             char before = input[index-1];
             if(before != ')' && !isdigit(before)){
-               printf("xd");
                value = 0;
             }
          }
@@ -76,11 +75,38 @@ int is_sign(const char* input, int index){
    return value;
 }
 
+type get_type(char character){
+   int val = -1;
+   switch(character){
+      case '-':
+         val = Substraction;
+         break;
+      case '+':
+         val = Addition;
+         break;
+      case '*':
+         val = Multiplication;
+         break;
+      case '/':
+         val = Division;
+         break;
+      case 's':
+         val = Sqrt;
+         break;
+      case '^':
+         val = Power;
+         break;
+   }
+   return val;
+}
+
 stack* tokenize(const char* input){
    stack* tokens = allocateNewStack();
    for(int i = 0; i < strlen(input); i++){
       if(is_sign(input, i) == 1){
-         printf("Sign\n");
+         content* new = malloc(sizeof(content));
+         new->type = get_type(input[i]);
+         add(tokens, new);
       }else{
          printf("No sign\n");   
       }
@@ -93,10 +119,8 @@ stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
-   for(int i = 0; i < strlen(input); i++){
-      
+   for(int i = 0; i < tokens->count; i++){
+      printf("%d\n", tokens->stack[i]->type); 
    }
-   free(tokens);
-   free(operators);
    return output;
 }
