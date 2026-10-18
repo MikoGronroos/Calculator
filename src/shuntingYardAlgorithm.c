@@ -49,13 +49,28 @@ char* getAssociativity(char operator){
 
 }
 
-int is_sign(char character){
-   char all[] = {'^', '*', '/', '+', '-', '(', '9'};
+int is_sign(const char* input, int index){
+   int length = strlen(input);
+   char all[] = {'^', '*', '/', '+', '-', '(', ')'};
    int value = 0;
-   int count = 5;
+   int count = 7;
    for(int i = 0; i < count; i++){
-      if(character == all[i]){
-         value = 1;  
+      if(input[index] == all[i]){
+         value = 1;
+      }
+   }
+   if(value == 1){
+      if(input[index] == '-'){
+         if(index == 0){
+            value = 0;
+         }
+         if(index - 1 > 0){
+            char before = input[index-1];
+            if(before != ')' && !isdigit(before)){
+               printf("xd");
+               value = 0;
+            }
+         }
       }
    }
    return value;
@@ -64,8 +79,10 @@ int is_sign(char character){
 stack* tokenize(const char* input){
    stack* tokens = allocateNewStack();
    for(int i = 0; i < strlen(input); i++){
-      if(is_sign(input[i]) == 1){
-      
+      if(is_sign(input, i) == 1){
+         printf("Sign\n");
+      }else{
+         printf("No sign\n");   
       }
    }
    
