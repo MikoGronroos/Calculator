@@ -3,6 +3,7 @@
 #include "stack.h"
 #include "shuntingYardAlgorithm.h"
 #include <string.h>
+#include "calculate.h"
 
 int main(void){
    while(true){
@@ -16,6 +17,14 @@ int main(void){
            buffer[strlen(buffer)-1] = '\0';
          }
          stack* output = parse(buffer);
+         for(int i = 0; i < output->count; i++){
+            printf("%d a\n", output->stack[i]->type);
+            if(output->stack[i]->type == Number){
+               printf("%s b\n", output->stack[i]->input);
+            }
+         }
+         double anwser = calculate(*output);
+         printf("%.2f\n", anwser);
          free(output);
       }
    }

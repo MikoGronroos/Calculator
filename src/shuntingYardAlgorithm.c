@@ -138,7 +138,7 @@ stack* parse(const char* input){
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
    int index = 0;
-   content item = *tokens->stack[index];
+   content item = *tokens->stack[0];
    for(int i = 0; i < tokens->count; i++){
       if(item.type == Number){
          add(output, item.input, item.type);
@@ -163,8 +163,7 @@ stack* parse(const char* input){
             }
          }
       }
-      index++;
-      item = *tokens->stack[index];
+      item = *tokens->stack[i];
    }
    while(operators->count > 0){
       content* new = pop(operators);
