@@ -17,9 +17,8 @@ int main(void){
            buffer[strlen(buffer)-1] = '\0';
          }
          stack* output = parse(buffer);
-         //double anwser = calculate(*output);
-         //printf("%.2f\n", anwser);
-         //free(output);
+         double anwser = calculate(*output);
+         printf("ans: %.2f\n", anwser);
       }
    }
    return 0;
