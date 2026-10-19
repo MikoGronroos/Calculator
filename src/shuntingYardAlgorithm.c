@@ -125,9 +125,6 @@ stack* parse(const char* input){
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
    for(int i = 0; i < tokens->count; i++){
-      printf("%s loop\n", tokens->stack[i]->input);
-   }
-   for(int i = 0; i < tokens->count; i++){
       content item = *tokens->stack[i];
       if(item.type == Number){
          add(output, item.input, item.type);
@@ -156,10 +153,6 @@ stack* parse(const char* input){
    while(operators->count > 0){
       content* new = pop(operators);
       add(output, new->input, new->type);
-   }
-   printf("------\n");
-   for(int i = 0; i < output->count; i++){
-      printf("%s loop\n", output->stack[i]->input);
    }
    return output;
 }
