@@ -12,14 +12,11 @@ double calculate(stack input){
       if(input.stack[i]->type == Number){
          sprintf(newChar, "%s", input.stack[i]->input);
          add(output, newChar, Number);
-      }else if(input.stack[i]->type == Sqrt){
-         //double firstNumber = atof(pop(output)->input);
-         //double sqrtValue = sqrt(firstNumber);
-         //sprintf(newChar, "%f", sqrtValue);
-         //add(output, newChar, Number);
       }else{
          double secondNumber = atof(pop(output)->input);
+         printf("%f\n", secondNumber);
          double firstNumber = atof(pop(output)->input);
+         printf("%f\n", firstNumber);
          if(input.stack[i]->type == Addition){
             double final = firstNumber + secondNumber;
             sprintf(newChar, "%f", final);

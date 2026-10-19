@@ -59,19 +59,6 @@ int is_sign(const char* input, int index){
          value = 1;
       }
    }
-   if(value == 1){
-      if(input[index] == '-'){
-         if(index == 0){
-            value = 0;
-         }
-         if(index - 1 > 0){
-            char before = input[index-1];
-            if(before != ')' && !isdigit(before)){
-               value = 0;
-            }
-         }
-      }
-   }
    return value;
 }
 
@@ -137,20 +124,22 @@ stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
-   int index = 0;
-   content item = *tokens->stack[0];
    for(int i = 0; i < tokens->count; i++){
+      printf("%s loop\n", tokens->stack[i]->input);
+   }
+   for(int i = 0; i < tokens->count; i++){
+      content item = *tokens->stack[i];
       if(item.type == Number){
          add(output, item.input, item.type);
       } else if(item.type != Number && item.type != LBracket && item.type != RBracket){
-      if(operators->count >= 1){
-         while(operators->stack[operators->count-1]->type != LBracket && (getPrecedence(operators->stack[operators->count-1]->type) > getPrecedence(item.type) || (getPrecedence(operators->stack[operators->count-1]->type) == getPrecedence(item.type) && getAssociativity(item.type) == "left"))){
-            content* new = pop(operators);
-            add(output, new->input, new->type); 
-            break;        
+         if(operators->count >= 1){
+            while(operators->stack[operators->count-1]->type != LBracket && (getPrecedence(operators->stack[operators->count-1]->type) > getPrecedence(item.type) || (getPrecedence(operators->stack[operators->count-1]->type) == getPrecedence(item.type) && getAssociativity(item.type) == "left"))){
+               content* new = pop(operators);
+               add(output, new->input, new->type); 
+               break;        
+            }
          }
-      }
-      add(operators, item.input, item.type); 
+         add(operators, item.input, item.type); 
       }else if(item.type != Number && item.type == LBracket){
          add(operators, item.input, item.type); 
       }else if(item.type != Number && item.type == RBracket){
@@ -163,11 +152,14 @@ stack* parse(const char* input){
             }
          }
       }
-      item = *tokens->stack[i];
    }
    while(operators->count > 0){
       content* new = pop(operators);
       add(output, new->input, new->type);
+   }
+   printf("------\n");
+   for(int i = 0; i < output->count; i++){
+      printf("%s loop\n", output->stack[i]->input);
    }
    return output;
 }
