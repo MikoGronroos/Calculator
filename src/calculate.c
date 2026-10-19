@@ -14,7 +14,6 @@ double calculate(stack input){
       switch(input.stack[i]->type){
          case Number:
             sprintf(newChar, "%s", input.stack[i]->input);
-            add(output, newChar, Number);
             break;
          case UnaryMinus:
             double number = atof(pop(output)->input);
