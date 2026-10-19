@@ -17,6 +17,9 @@ int getPrecedence(type operator){
   if(operator == Division){
     return 3;
   }
+   if(operator == UnaryMinus){
+      return 3;
+   }
   if(operator == Addition){
     return 2;
   }
@@ -32,6 +35,9 @@ char* getAssociativity(type type){
   }
   if(type == Sqrt){
     return "left";
+  }
+  if(type == UnaryMinus){
+    return "right";
   }
   if(type == Multiplication){
     return "left";
@@ -62,11 +68,20 @@ int is_sign(const char* input, int index){
    return value;
 }
 
-type get_type(char character){
+type get_type(const char* input, int index){
    int val = -1;
-   switch(character){
+   switch(input[index]){
       case '-':
          val = Substraction;
+         if(index == 0){
+            val = UnaryMinus;
+         }
+         if(index - 1 > 0){
+         char before = input[index-1];
+            if(before != ')' && !isdigit(before)){
+               val = UnaryMinus;
+            }
+         }
          break;
       case '+':
          val = Addition;
@@ -105,7 +120,8 @@ stack* tokenize(const char* input){
             dest[numberCount] = '\0';
             add(tokens, dest, Number);
          }
-         add(tokens, "empty", get_type(input[i]));
+         type fetch = get_type(input, i);
+         add(tokens, "empty", fetch);
          numberCount = 0;
       }else{
          numberCount++; 
@@ -124,15 +140,17 @@ stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
+   printf("------\n");
    for(int i = 0; i < tokens->count; i++){
       content item = *tokens->stack[i];
+      printf("type at parse start: %d\n", item.type);
       if(item.type == Number){
          add(output, item.input, item.type);
       } else if(item.type != Number && item.type != LBracket && item.type != RBracket){
          if(operators->count >= 1){
             while(operators->stack[operators->count-1]->type != LBracket && (getPrecedence(operators->stack[operators->count-1]->type) > getPrecedence(item.type) || (getPrecedence(operators->stack[operators->count-1]->type) == getPrecedence(item.type) && getAssociativity(item.type) == "left"))){
                content* new = pop(operators);
-               add(output, new->input, new->type); 
+               add(output, new->input, new->type);
                break;        
             }
          }

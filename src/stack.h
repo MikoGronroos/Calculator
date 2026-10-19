@@ -7,12 +7,10 @@ typedef enum type{
    Multiplication,
    Division,
    Sqrt,
-   Sin,
-   Cos,
-   Tan,
    Power,
    LBracket,
-   RBracket
+   RBracket,
+   UnaryMinus
 } type;
 
 typedef struct content{

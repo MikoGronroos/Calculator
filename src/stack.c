@@ -21,9 +21,6 @@ content* pop(stack* stack){
    }
    stack->count--;
    content* newContent = stack->stack[stack->count];
-   if(stack->count <= 0){
-      freeStack(stack);
-   }
    return newContent;
 }
 stack* allocateNewStack(){

@@ -16,10 +16,10 @@ int main(void){
          }else{
            buffer[strlen(buffer)-1] = '\0';
          }
-         stack* output = parse(buffer); 
-         double anwser = calculate(*output);
-         printf("%.2f\n", anwser);
-         free(output);
+         stack* output = parse(buffer);
+         //double anwser = calculate(*output);
+         //printf("%.2f\n", anwser);
+         //free(output);
       }
    }
    return 0;

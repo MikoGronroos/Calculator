@@ -8,15 +8,13 @@
 double calculate(stack input){
    stack* output = allocateNewStack();
    for(int i = 0; i < input.count; i++){
-      char* newChar = malloc(128*sizeof(char));
+      char* newChar = malloc(32);
       if(input.stack[i]->type == Number){
          sprintf(newChar, "%s", input.stack[i]->input);
          add(output, newChar, Number);
       }else{
          double secondNumber = atof(pop(output)->input);
-         printf("%f\n", secondNumber);
          double firstNumber = atof(pop(output)->input);
-         printf("%f\n", firstNumber);
          if(input.stack[i]->type == Addition){
             double final = firstNumber + secondNumber;
             sprintf(newChar, "%f", final);
