@@ -14,6 +14,7 @@ int add(stack* stack, char* input, type type){
    stack->count++;
    return 0;
 }
+
 content* pop(stack* stack){
    if(stack->count <= 0){
       return NULL;

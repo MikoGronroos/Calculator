@@ -10,7 +10,9 @@ typedef enum type{
    Sin,
    Cos,
    Tan,
-   Power
+   Power,
+   LBracket,
+   RBracket
 } type;
 
 typedef struct content{

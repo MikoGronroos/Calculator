@@ -4,45 +4,45 @@
 #include <stdlib.h>
 #include <string.h>
 
-int getPrecedence(char operator){
-  if(operator == '^'){
+int getPrecedence(type operator){
+  if(operator == Power){
     return 5;
   }
-  if(operator == 's'){
+  if(operator == Sqrt){
     return 4;
   }
-  if(operator == '*'){
+  if(operator == Multiplication){
     return 3;
   }
-  if(operator == '/'){
+  if(operator == Division){
     return 3;
   }
-  if(operator == '+'){
+  if(operator == Addition){
     return 2;
   }
-  if(operator == '-'){
+  if(operator == Substraction){
     return 2;
   }
   return 0;
 }
 
-char* getAssociativity(char operator){
-  if(operator == '^'){
+char* getAssociativity(type type){
+  if(type == Power){
     return "right";
   }
-  if(operator == 's'){
+  if(type == Sqrt){
     return "left";
   }
-  if(operator == '*'){
+  if(type == Multiplication){
     return "left";
   }
-  if(operator == '/'){
+  if(type == Division){
     return "left";
   }
-  if(operator == '+'){
+  if(type == Addition){
     return "left";
   }
-  if(operator == '-'){
+  if(type == Substraction){
     return "left";
   }
   return "none";
@@ -96,6 +96,12 @@ type get_type(char character){
       case '^':
          val = Power;
          break;
+      case '(':
+         val = LBracket;
+         break;
+      case ')':
+         val = RBracket;
+         break;
    }
    return val;
 }
@@ -131,12 +137,38 @@ stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
+   int index = 0;
+   content item = *tokens->stack[index];
    for(int i = 0; i < tokens->count; i++){
+      if(item.type == Number){
+         add(output, item.input, item.type);
+      } else if(item.type != Number && item.type != LBracket && item.type != RBracket){
+      if(operators->count >= 1){
+         while(operators->stack[operators->count-1]->type != LBracket && (getPrecedence(operators->stack[operators->count-1]->type) > getPrecedence(item.type) || (getPrecedence(operators->stack[operators->count-1]->type) == getPrecedence(item.type) && getAssociativity(item.type) == "left"))){
+            content* new = pop(operators);
+            add(output, new->input, new->type); 
+            break;        
+         }
+      }
+      add(operators, item.input, item.type); 
+      }else if(item.type != Number && item.type == LBracket){
+         add(operators, item.input, item.type); 
+      }else if(item.type != Number && item.type == RBracket){
+         while(true){
+            content* new = pop(operators);
+            if(new->type != LBracket){
+               add(output, new->input, new->type);
+            }else{
+               break;
+            }
+         }
+      }
+      index++;
+      item = *tokens->stack[index];
    }
-
    while(operators->count > 0){
       content* new = pop(operators);
-      add(output, new);
+      add(output, new->input, new->type);
    }
    return output;
 }
