@@ -140,10 +140,8 @@ stack* parse(const char* input){
    stack* output = allocateNewStack();
    stack* operators = allocateNewStack();
    stack* tokens = tokenize(input);
-   printf("------\n");
    for(int i = 0; i < tokens->count; i++){
       content item = *tokens->stack[i];
-      printf("type at parse start: %d\n", item.type);
       if(item.type == Number){
          add(output, item.input, item.type);
       } else if(item.type != Number && item.type != LBracket && item.type != RBracket){
