@@ -133,5 +133,10 @@ stack* parse(const char* input){
    stack* tokens = tokenize(input);
    for(int i = 0; i < tokens->count; i++){
    }
+
+   while(operators->count > 0){
+      content* new = pop(operators);
+      add(output, new);
+   }
    return output;
 }
