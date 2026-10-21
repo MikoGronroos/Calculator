@@ -76,7 +76,7 @@ type get_type(const char* input, int index){
          if(index == 0){
             val = UnaryMinus;
          }
-         if(index - 1 > 0){
+         if(index - 1 >= 0){
          char before = input[index-1];
             if(before != ')' && !isdigit(before)){
                val = UnaryMinus;
