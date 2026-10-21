@@ -18,7 +18,7 @@ int main(void){
          }
          stack* output = parse(buffer);
          double anwser = calculate(*output);
-         printf("ans: %.2f\n", anwser);
+         printf("ans: %.5f\n", anwser);
       }
    }
    return 0;
