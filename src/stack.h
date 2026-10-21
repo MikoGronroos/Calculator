@@ -10,7 +10,8 @@ typedef enum type{
    Power,
    LBracket,
    RBracket,
-   UnaryMinus
+   UnaryMinus,
+   UnaryMinusPow
 } type;
 
 typedef struct content{

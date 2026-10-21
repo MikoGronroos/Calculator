@@ -20,6 +20,9 @@ int getPrecedence(type operator){
    if(operator == UnaryMinus){
       return 3;
    }
+   if(operator == UnaryMinusPow){
+      return 6;
+   }
   if(operator == Addition){
     return 2;
   }
@@ -37,6 +40,9 @@ char* getAssociativity(type type){
     return "left";
   }
   if(type == UnaryMinus){
+    return "right";
+  }
+  if(type == UnaryMinusPow){
     return "right";
   }
   if(type == Multiplication){
@@ -80,6 +86,9 @@ type get_type(const char* input, int index){
          char before = input[index-1];
             if(before != ')' && !isdigit(before)){
                val = UnaryMinus;
+            }
+            if(before == '^'){
+               val = UnaryMinusPow;
             }
          }
          break;

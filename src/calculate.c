@@ -8,6 +8,9 @@
 double calculate(stack input){
    stack* output = allocateNewStack();
    for(int i = 0; i < input.count; i++){
+      printf("%d\n", input.stack[i]->type);
+   }
+   for(int i = 0; i < input.count; i++){
       char* newChar = malloc(32);
       double secondNumber = 0;
       double firstNumber = 0;
@@ -15,6 +18,7 @@ double calculate(stack input){
          case Number:
             sprintf(newChar, "%s", input.stack[i]->input);
             break;
+         case UnaryMinusPow:
          case UnaryMinus:
             double number = atof(pop(output)->input);
             number *= -1;
