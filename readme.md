@@ -6,10 +6,10 @@ You can use the operators +, -, *, /, ( ), ^ (power), s (square root) and ans (p
 
 ## Demo pictures
 
-Show +, -, *, /, ( ) and ^
+### Show +, -, *, /, ( ) and ^
 ![plot](./pictures/Calculations1.png "Calculation 1")
 
-Show square root and ans
+### Show square root and ans
 ![plot](./pictures/Calculations2.png "Calculation 2")
 ## Future
 
