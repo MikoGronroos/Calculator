@@ -128,6 +128,8 @@ int is_number(const char* input){
    return is;
 }
 
+
+
 void process_string(char* input, stack* tokens){
    if(is_number(input) == 1){
       add(tokens, input, Number);
@@ -137,55 +139,53 @@ void process_string(char* input, stack* tokens){
          sprintf(str, "%f", get_ans());
          int numberCount = 0;
          int length = strlen(str);
-         for(int i = 0; i < length; i++){
-            if(is_sign(str, i) == 1){
+         for(int i = 0; i <= length; i++){
+            int is_end = (i == length);
+            if(is_end || is_sign(str, i) == 1){
                if(numberCount > 0){
-                  char dest[input_length];
+                  char dest[length + 1];
                   strncpy(dest, str + i - numberCount, numberCount);
                   dest[numberCount] = '\0';
                   add(tokens, dest, Number);
+                  numberCount = 0;
                }
-               type fetch = get_type(str, i);
-               add(tokens, "empty", fetch);
-               numberCount = 0;
-            }else{
-               numberCount++; 
+               
+               if(!is_end){
+                  type fetch = get_type(str, i);
+                  add(tokens, "empty", fetch);
+               }
+            }else{  
+               numberCount++;
             }
-         }
-         if(numberCount > 0){
-            char dest[input_length];
-            strncpy(dest, str + length - numberCount, numberCount);
-            dest[numberCount] = '\0';
-            add(tokens, dest, Number);
          }
       }
    }
 }
 
+
+
 stack* tokenize(const char* input){
    stack* tokens = allocateNewStack();
    int numberCount = 0;
    int length = strlen(input);
-   for(int i = 0; i < length; i++){
-      if(is_sign(input, i) == 1){
+   for(int i = 0; i <= length; i++){
+      int is_end = (i == length);
+      if(is_end || is_sign(input, i) == 1){
          if(numberCount > 0){
-            char dest[input_length];
+            char dest[length + 1];
             strncpy(dest, input + i - numberCount, numberCount);
             dest[numberCount] = '\0';
             process_string(dest, tokens);
+            numberCount = 0;
          }
-         type fetch = get_type(input, i);
-         add(tokens, "empty", fetch);
-         numberCount = 0;
+         
+         if(!is_end){
+            type fetch = get_type(input, i);
+            add(tokens, "empty", fetch);
+         }
       }else{
-         numberCount++; 
+         numberCount++;
       }
-   }
-   if(numberCount > 0){
-      char dest[input_length];
-      strncpy(dest, input + length - numberCount, numberCount);
-      dest[numberCount] = '\0';
-      process_string(dest, tokens);
    }
    return tokens;
 }
