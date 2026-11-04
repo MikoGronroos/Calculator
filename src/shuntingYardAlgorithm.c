@@ -64,9 +64,9 @@ char* getAssociativity(type type){
 
 int is_sign(const char* input, int index){
    int length = strlen(input);
-   char all[] = {'^', '*', '/', '+', '-', '(', ')', 's'};
+   char all[] = {'^', '*', '/', '+', '-', '(', ')'};
    int value = 0;
-   int count = 8;
+   int count = 7;
    for(int i = 0; i < count; i++){
       if(input[index] == all[i]){
          value = 1;
@@ -158,6 +158,9 @@ void process_string(char* input, stack* tokens){
                numberCount++;
             }
          }
+      }
+      if(strcmp(input, "s") == 0){
+         add(tokens, "empty", Sqrt);
       }
    }
 }
