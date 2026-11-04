@@ -32,5 +32,8 @@ stack* allocateNewStack(){
    return newStack;
 }
 int freeStack(stack* target){
+   for(int i = target->count - 1; i >= 0; i--){
+      free(target->stack[i]);
+   }
    free(target->stack);
 }
