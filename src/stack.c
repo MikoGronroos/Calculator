@@ -32,6 +32,9 @@ stack* allocateNewStack(){
    return newStack;
 }
 int freeStack(stack* target){
+   #ifdef DEBUG
+   printf("Releasing stack with %d items\n", target->count);
+   #endif
    for(int i = target->count - 1; i >= 0; i--){
       free(target->stack[i]);
    }
