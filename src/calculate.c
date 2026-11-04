@@ -60,5 +60,6 @@ double calculate(stack input){
       add(output, newChar, Number);
    }
    double value = atof(output->stack[0]->input);
+   freeStack(output);
    return value;
 }
