@@ -64,9 +64,9 @@ char* getAssociativity(type type){
 
 int is_sign(const char* input, int index){
    int length = strlen(input);
-   char all[] = {'^', '*', '/', '+', '-', '(', ')'};
+   char all[] = {'^', '*', '/', '+', '-', '(', ')', 's'};
    int value = 0;
-   int count = 7;
+   int count = 8;
    for(int i = 0; i < count; i++){
       if(input[index] == all[i]){
          value = 1;

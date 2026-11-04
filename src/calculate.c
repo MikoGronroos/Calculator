@@ -50,6 +50,11 @@ double calculate(stack input){
             firstNumber = atof(pop(output)->input);
             sprintf(newChar, "%f",pow(firstNumber, secondNumber));
             break;
+         case Sqrt:
+            firstNumber = atof(pop(output)->input);
+            double sqrtValue = sqrt(firstNumber);
+            sprintf(newChar, "%f", sqrtValue);
+            break;
       }
       
       add(output, newChar, Number);
