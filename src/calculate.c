@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include "state.h"
 
 double calculate(stack input){
    stack* output = allocateNewStack();
@@ -14,6 +15,9 @@ double calculate(stack input){
       switch(input.stack[i]->type){
          case Number:
             sprintf(newChar, "%s", input.stack[i]->input);
+            break;
+         case Ans:
+            sprintf(newChar, "%f", get_ans());
             break;
          case UnaryMinusPow:
          case UnaryMinus:
@@ -47,6 +51,7 @@ double calculate(stack input){
             sprintf(newChar, "%f",pow(firstNumber, secondNumber));
             break;
       }
+      
       add(output, newChar, Number);
    }
    double value = atof(output->stack[0]->input);

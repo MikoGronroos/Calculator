@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include "state.h"
 
 int getPrecedence(type operator){
   if(operator == Power){
@@ -117,6 +118,50 @@ type get_type(const char* input, int index){
    return val;
 }
 
+int is_number(const char* input){
+   int is = 1;
+   for(int i = 0; i < strlen(input); i++){
+      if(isdigit(input[i]) == 0){
+         is = 0;
+      }
+   }
+   return is;
+}
+
+void process_string(char* input, stack* tokens){
+   if(is_number(input) == 1){
+      add(tokens, input, Number);
+   }else{
+      if(strcmp(input, "ans") == 0){
+         char str[128];
+         sprintf(str, "%f", get_ans());
+         int numberCount = 0;
+         int length = strlen(str);
+         for(int i = 0; i < length; i++){
+            if(is_sign(str, i) == 1){
+               if(numberCount > 0){
+                  char dest[input_length];
+                  strncpy(dest, str + i - numberCount, numberCount);
+                  dest[numberCount] = '\0';
+                  add(tokens, dest, Number);
+               }
+               type fetch = get_type(str, i);
+               add(tokens, "empty", fetch);
+               numberCount = 0;
+            }else{
+               numberCount++; 
+            }
+         }
+         if(numberCount > 0){
+            char dest[input_length];
+            strncpy(dest, str + length - numberCount, numberCount);
+            dest[numberCount] = '\0';
+            add(tokens, dest, Number);
+         }
+      }
+   }
+}
+
 stack* tokenize(const char* input){
    stack* tokens = allocateNewStack();
    int numberCount = 0;
@@ -127,7 +172,7 @@ stack* tokenize(const char* input){
             char dest[input_length];
             strncpy(dest, input + i - numberCount, numberCount);
             dest[numberCount] = '\0';
-            add(tokens, dest, Number);
+            process_string(dest, tokens);
          }
          type fetch = get_type(input, i);
          add(tokens, "empty", fetch);
@@ -140,7 +185,7 @@ stack* tokenize(const char* input){
       char dest[input_length];
       strncpy(dest, input + length - numberCount, numberCount);
       dest[numberCount] = '\0';
-      add(tokens, dest, Number);
+      process_string(dest, tokens);
    }
    return tokens;
 }

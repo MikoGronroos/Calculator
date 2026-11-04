@@ -11,7 +11,8 @@ typedef enum type{
    LBracket,
    RBracket,
    UnaryMinus,
-   UnaryMinusPow
+   UnaryMinusPow,
+   Ans
 } type;
 
 typedef struct content{

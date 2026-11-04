@@ -4,6 +4,7 @@
 #include "shuntingYardAlgorithm.h"
 #include <string.h>
 #include "calculate.h"
+#include "state.h"
 
 int main(void){
    while(true){
@@ -17,8 +18,9 @@ int main(void){
            buffer[strlen(buffer)-1] = '\0';
          }
          stack* output = parse(buffer);
-         double anwser = calculate(*output);
-         printf("ans: %.5f\n", anwser);
+         double ans = calculate(*output);
+         set_ans(ans);
+         printf("ans: %.5f\n", ans);
       }
    }
    return 0;
