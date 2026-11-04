@@ -19,6 +19,7 @@ int main(void){
          }
          stack* output = parse(buffer);
          double ans = calculate(*output);
+         freeStack(output);
          set_ans(ans);
          printf("ans: %.5f\n", ans);
       }
