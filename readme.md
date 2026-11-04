@@ -2,7 +2,7 @@ This is my calculator project which uses shunting yard algortihm to parse and so
 
 The idea for calculator came when I needed a calculator for my bash terminal. Now I have an alias setup so that I can calculate anything by typing "calc" on my bash and then typing a mathematical problem.
 
-You can use the operators +, -, *, /, ( ), ^ (power) and s (square root).
+You can use the operators +, -, *, /, ( ), ^ (power), s (square root) and ans (previous anwser).
 
 ## Demo pictures
 
