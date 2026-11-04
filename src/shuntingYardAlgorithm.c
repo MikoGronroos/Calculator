@@ -224,5 +224,7 @@ stack* parse(const char* input){
       content* new = pop(operators);
       add(output, new->input, new->type);
    }
+   freeStack(operators);
+   freeStack(tokens);
    return output;
 }
