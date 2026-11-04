@@ -121,7 +121,7 @@ type get_type(const char* input, int index){
 int is_number(const char* input){
    int is = 1;
    for(int i = 0; i < strlen(input); i++){
-      if(isdigit(input[i]) == 0){
+      if(isdigit(input[i]) == 0 && input[i] != '.'){
          is = 0;
       }
    }
